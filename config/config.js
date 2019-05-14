@@ -1,8 +1,10 @@
-{
+ require("dotenv").config
+ 
+ const config = {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "database_development",
+    "password": process.env.password,
+    "database": "TBD",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
