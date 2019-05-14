@@ -1,29 +1,29 @@
-// import dependencies
-const express = require('express');
+//set up express app
+var express = require("express");
+//import database
+var db = require("./models");
+//set port to either local or production
+var PORT = process.env.PORT || 3000;
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+var app = express();
 
-const db = require("./models")
-
-// set up necessarily middleware
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-// tell server to ignore any requests being made to anything in the "public" folder
-app.use(express.static("public"));
-
-// turn on routes
-require('./routes/htmlRoutes')(app);
-require('./routes/apiRoutes')(app);
-
-// set up wildcard (404) route
-app.get('*', function(req, res) {
+//import routes
+var apiRoutes = require("./routes/apiRoutes");
+var htmlRoutes = require("./routes/htmlroutes");
+//use routes
+app.use(apiRoutes);
+app.use(htmlRoutes);
+//404 error if endpoint is not found
+app.get('*', function(req,res){
   res.json({
     status: 404,
-    message: "Page not found..."
+    message: "Page not found."
   });
 });
-db.sequelize.sync().then(function(){
-app.listen(PORT, () => console.log(`Connected! Listening on http://localhost:${PORT}`));
-})
+//start the server
+  app.listen(PORT, function() {
+    console.log("Server listening on: http://localhost: " + PORT);
+});
