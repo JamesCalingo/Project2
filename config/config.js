@@ -1,10 +1,10 @@
- require("dotenv").config
+ require("dotenv").config()
  
- const config = {
+ module.exports = {
   "development": {
     "username": "root",
-    "password": process.env.password,
-    "database": "TBD",
+    "password": process.env.DB_PW,
+    "database": "registry",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
