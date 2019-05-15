@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Products = sequelize.define("items", {
+  var Products = sequelize.define("Products", {
     product: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -22,7 +22,6 @@ module.exports = function(sequelize, DataTypes) {
         len: [1]
     }
   },
-
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
@@ -31,17 +30,26 @@ module.exports = function(sequelize, DataTypes) {
       len: [1]
   }
 }
-  
-  });
 
-  Products.associate = function(models) {
-    // We're saying that a Post should belong to an Author
-    // A Post can't be created without an Author due to the foreign key constraint
-    Products.belongsTo(models.User, {
-      foreignKey: {
-        allowNull: false
-      }
-    });
-  };
+},
+{
+  classMethods: {
+    associate : function(models) {
+      Products.belongsTo(models.Users)
+    }
+  }
+}
+
+);
+
+  // Products.associate = function(models) {
+  //   // We're saying that a Product should belong to a User
+  //   // A Product can't be created without an User due to the foreign key constraint
+  //   Products.belongsTo(models.Users, {
+  //     foreignKey: {
+  //       allowNull: false
+  //     }
+  //   });
+  // };
   return Products;
-};
+ };
