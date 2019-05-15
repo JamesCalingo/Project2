@@ -10,10 +10,31 @@
 <title>Create New Registry</title>
 </head>
 <body>
-  Welcome! 
+  <!--
+    function Validate() {
+        var password = document.getElementById("txtPassword").value;
+        var confirmPassword = document.getElementById("txtConfirmPassword").value;
+        if (password != confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
+        }
+        return true;
+    }
+  -->
+  <h2>Welcome! please create a registry</h2>
+
+    please enter:<br> 
+    first name:      <input type="text" id="firstName"><br>
+    last name:       <input type="text" id="lastName"><br>
+    email:           <input type="text" id="email"><br>
+    password:        <input type="text" id="password"><br>
+    confirm password:<input type="text" id="confirmPassword"><br>
+    <button type="submit" class="createRegistry">Create</button>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="assets/js/javascript.js"></script>
 </body>
 </html>
