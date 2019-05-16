@@ -42,14 +42,5 @@ module.exports = function(sequelize, DataTypes) {
 
 );
 
-  // Products.associate = function(models) {
-  //   // We're saying that a Product should belong to a User
-  //   // A Product can't be created without an User due to the foreign key constraint
-  //   Products.belongsTo(models.Users, {
-  //     foreignKey: {
-  //       allowNull: false
-  //     }
-  //   });
-  // };
   return Products;
  };
