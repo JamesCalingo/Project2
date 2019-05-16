@@ -51,6 +51,18 @@ $("#createUser").on("submit", function(event){
 })
 
 // find and display registry
+$("#findRegistry").on("click", function(event){
+  event.preventDefault();
+  var registry = $("#registryLookup").val().trim();
+  // API lookup the registry
+  if(!registry){
+    alert("We couldn't find that registry. Make sure it's spelled correctly and exactly as it was given to you, then try again.")
+  }
+    else{
+      window.location.href = "./dummy"
+    }
+  })
+  // Go to registry page - there's probably a way to make each registry its own page...
 
 // set value of product to "purchased: true"
 
