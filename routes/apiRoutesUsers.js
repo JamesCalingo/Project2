@@ -7,10 +7,19 @@ module.exports = (app) =>{
       .then(dbUserData => res.json(dbUserData))
   });
 // API Route to create new user (pre password)
-app.post("/api/users", function(req, res) {
+app.post("/api/users/register", function(req, res) {
   Users.create({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
+    email: req.body.email,
+    password: req.body.password
+  }).then(function(dbProductData){
+    res.json(dbProductData)
+  })
+ });
+
+ app.post("/api/users/login", function(req, res) {
+  Users.findOne({
     email: req.body.email,
     password: req.body.password
   }).then(function(dbProductData){
