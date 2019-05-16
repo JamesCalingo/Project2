@@ -1,38 +1,54 @@
 // Create user and add to database
 
-$("#createUser").on("click", function(event){
+$("#createUser").on("submit", function(event){
   event.preventDefault();
-    const checkValues = [];
-    $("[name=Radios]").each((i, element) => {
-      if ($(element).is(":checked")) {
-        checkValues.push($(element).val());
-        console.log(checkValues);
-      }
-    });
-  const newUser = {
-    firstName: $("#firstNameInput").val().trim(),
-    lastName: $("#lastNameInput").val().trim(),
-    email: $("#emailInput").val().trim(),
-    password: $("#inputPassword1").val().trim(),
-    registryName: $("#registryName").val().trim(),
-    registryType: checkValues[0]
-    }
-    // If ANY part of newUser is empty, warn user to fill in that part
-    if(!newUser.firstName||!newUser.lastName){
-      alert("Fill in all fields please!")
-    }
-    else{
-    console.log(newUser)
+  const userData = {
+    firstName: $('#firstNameInput')
+      .val()
+      .trim(),
+    lastName: $('#lastNameInput')
+      .val()
+      .trim(),
+    email: $('#emailInput')
+      .val()
+      .trim(),
+    password: $('#InputPassword1')
+      .val()
+      .trim()
+  };
 
-    $("#firstNameInput").val(null);
-    $("#lastNameInput").val(null);
-    $("#emailInput").val(null);
-   $("#inputPassword1").val(null);
-   $("#inputPassword2").val(null);
-    $("#registryName").val(null);
-  window.location.href = "./success"  
+  if (!userData.firstName || !userData.lastName || !userData.email || !userData.password) {
+    return swal({
+      title: "You're missing something!",
+      icon: 'error'
+    });
   }
+
+  $.ajax({
+    url: '/api/users',
+    method: 'POST',
+    data: userData
   })
+    .then(function(userData) {
+      console.log(userData);
+      return swal({
+        title: userData.message,
+        icon: 'success'
+      });
+    })
+    // .then(function() {
+    //   // custom bootstrap method
+    //   $('#createuser').tab('hide');
+    //   $('#login').tab('show');
+    // })
+    .catch(err => {
+      console.log(err);
+      return swal({
+        title: err.responseJSON.message,
+        icon: 'error'
+      });
+    });
+})
 
 // find and display registry
 $("#findRegistry").on("click", function(event){
