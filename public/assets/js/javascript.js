@@ -1,3 +1,4 @@
+
 // Create user and add to database
 
 $("#createUser").on("submit", function(event){
@@ -67,4 +68,25 @@ $("#findRegistry").on("click", function(event){
 // set value of product to "purchased: true"
 
 // Add product
-
+$("#addProduct").on("click", function (event){
+  event.preventDefault();
+  var newProduct = {product: $("#product").val().trim(),
+  price: $("#price").val().trim()
+}
+if(!newProduct.product || !newProduct.price){
+  return swal({
+    title: "You're missing something!",
+    icon: 'error'
+  });
+}
+else{
+  $.ajax({
+    url: "api/products",
+    method: "POST",
+    data: newProduct
+  }).then(function(newProduct){
+    console.log(newProduct);
+    
+  })
+}
+})
