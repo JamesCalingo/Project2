@@ -16,12 +16,7 @@ app.get("/findRegistry", function(req, res) {
 });
 
 app.get("/login", function(req, res){
-<<<<<<< HEAD
-
-  res.sendFile(path.join(__dirname, "../public/registrylogin.html"));
-=======
   res.sendFile(path.join(__dirname, "../public/registryLogin.html"))
->>>>>>> master
 });
 
 };
