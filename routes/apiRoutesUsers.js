@@ -19,7 +19,7 @@ app.post("/api/users/register", function(req, res) {
  });
 
  app.post("/api/users/login", function(req, res) {
-  Users.create({
+  Users.findOne({
     email: req.body.email,
     password: req.body.password
   }).then(function(dbProductData){
