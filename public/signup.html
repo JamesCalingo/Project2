@@ -1,40 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
-<link rel="stylesheet" href="style.css">
-<title>Create New Registry</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <title>Create New Registry</title>
 </head>
+
 <body>
-  <!--
-    function Validate() {
-        var password = document.getElementById("txtPassword").value;
-        var confirmPassword = document.getElementById("txtConfirmPassword").value;
-        if (password != confirmPassword) {
-            alert("Passwords do not match.");
-            return false;
-        }
-        return true;
-    }
-  -->
-  <h2>Welcome! please create a registry</h2>
-
-    please enter:<br> 
-    first name:      <input type="text" id="firstName"><br>
-    last name:       <input type="text" id="lastName"><br>
-    email:           <input type="text" id="email"><br>
-    password:        <input type="text" id="password"><br>
-    confirm password:<input type="text" id="confirmPassword"><br>
-    <button type="submit" class="createRegistry">Create</button>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="assets/js/javascript.js"></script>
+  <p>Welcome! Fill in the form below and we'll set you up with your registry!</p>
+  <div class="container">
+    <form>
+      <div class="form-group">
+        <label for="formGroupExampleInput">Your first name</label>
+        <input type="text" class="form-control" id="firstNameInput" placeholder="">
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput2">Your last name</label>
+        <input type="text" class="form-control" id="lastNameInput" placeholder="">
+      </div>
+      <div class="form-group">
+        <label for="emailInput">Email address</label>
+        <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp" placeholder="">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+      <div class="form-group">
+        <label for="InputPassword1">Create Password</label>
+        <input type="password" class="form-control" id="inputPassword1" placeholder="">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Re-enter Password</label>
+        <input type="password" class="form-control" id="InputPassword2" placeholder="">
+        <small id="passwordHelp" class="form-text text-muted">Your password must be at least x characters.</small>
+      </div>
+      <!--
+      My/our registry is for a:
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="Radios" id="Radios1" value="wedding">
+        <label class="form-check-label" for="Radios1">
+          Wedding
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="Radios" id="Radios2" value="babyShower">
+        <label class="form-check-label" for="exampleRadios2">
+          Baby Shower
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="Radios" id="Radios3" value="other">
+        <label class="form-check-label" for="exampleRadios3">
+          Other (please specify)
+        </label>
+        <div class="form-group">
+          <input type="text" class="form-control" id="registryOther" placeholder="">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="registryName">Name of Registry</label>
+        <input type="input" class="form-control" id="registryName" aria-describedby=""
+          placeholder="Give your registry a unique, memorable name">
+        <small id="registryNameHelp" class="form-text text-muted">This is what your guests will use to find your registry on
+          our site.</small>
+      </div>-->
+      <button type="submit" id="createUser" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="./assets/js/javascript.js"></script>
 </body>
+
 </html>
