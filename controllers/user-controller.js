@@ -1,6 +1,6 @@
 // import dependencies
 const jwt = require('jsonwebtoken');
-const { User } = require('../models');
+const { Users } = require('../models');
 const handle = require('../utils/promise-handler');
 
 // set up secret for JWT (json web token)...typically you'd hide this in a .env
@@ -12,7 +12,7 @@ const register = (req, res) => {
   console.log(req.body);
   // get information about user out of req.body
   const { email, password, firstName, lastName} = req.body;
-  User.create({
+  Users.create({
     email,
     password,
     firstName,
@@ -78,7 +78,7 @@ const login = async (req, res) => {
 // get user profile
 // GET '/api/user' (this will be run through auth middleware)
 const getUserProfile = async (req, res) => {
-  const [userErr, userProfile] = await handle(User.findOne({id: req.id}));
+  const [userErr, userProfile] = await handle(Users.findOne({id: req.id}));
 
   if (userErr) {
     res.status(500).json(userErr);
