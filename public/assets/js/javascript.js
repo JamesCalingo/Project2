@@ -26,7 +26,7 @@ $("#createUser").on("submit", function(event){
   }
 
   $.ajax({
-    url: '/api/users',
+    url: '/api/users/register',
     method: 'POST',
     data: userData
   })
@@ -51,6 +51,44 @@ $("#createUser").on("submit", function(event){
     });
 })
 
+$("#login-btn").on("submit", function(event){
+event.preventDefault();
+
+const userData = {
+  email: $('#exampleInputEmail1')
+    .val()
+    .trim(),
+  password: $('#exampleInputPassword1')
+    .val()
+    .trim()
+};
+
+if (!userData.email || !userData.password) {
+  return swal({
+    title: "You're missing something!",
+    icon: 'error'
+  });
+}
+
+$.ajax({
+  url: '/api/users/login',
+  method: 'POST',
+  data: userData
+})
+  .then(function(accessToken) {
+    console.log(accessToken);
+    localStorage.setItem('accessToken', accessToken);
+    getUserProfile();
+  })
+  .catch(err => {
+    console.log(err);
+    return swal({
+      title: err.responseJSON.error,
+      icon: 'error'
+    });
+  });
+});
+
 // find and display registry
 $("#findRegistry").on("click", function(event){
   event.preventDefault();
@@ -62,7 +100,9 @@ $("#findRegistry").on("click", function(event){
     else{
       window.location.href = "./dummy"
     }
-  })
+  });
+
+
   // Go to registry page - there's probably a way to make each registry its own page...
 
 // set value of product to "purchased: true"
