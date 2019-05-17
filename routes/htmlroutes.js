@@ -18,4 +18,8 @@ app.get("/findRegistry", function(req, res) {
 app.get("/login", function(req, res){
   res.sendFile(path.join(__dirname, "../public/registryLogin.html"))
 });
+
+app.get("/additems", function(req, res){
+  res.sendFile(path.join(__dirname, "../public/addItems.html"))
+});
 };
