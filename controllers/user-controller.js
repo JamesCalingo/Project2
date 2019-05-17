@@ -1,6 +1,8 @@
 // import dependencies
 const jwt = require('jsonwebtoken');
-const { Users } = require('../models');
+const {
+  users: Users
+} = require('../models');
 const handle = require('../utils/promise-handler');
 
 // set up secret for JWT (json web token)...typically you'd hide this in a .env
@@ -11,29 +13,41 @@ const secret = 'donttellnobody';
 const register = (req, res) => {
   console.log(req.body);
   // get information about user out of req.body
-  const { email, password, firstName, lastName} = req.body;
-  Users.create({
+  const {
     email,
     password,
     firstName,
     lastName
-  })
-  .then(dbUserData => res.json(dbUserData))
-  .catch(err => {
-    console.log(err);
-    res.json(err);
-  });
+  } = req.body;
+  Users.create({
+      firstName,
+      lastName,
+      email,
+      password
+    })
+    .then(dbUserData => res.json(dbUserData))
+    .catch(err => {
+      console.log(err);
+      res.json(err);
+    });
 };
 
 // function for logging in a user
 // this will run when user POSTs to '/api/user/login'
 const login = async (req, res) => {
   // get email and password out of req.body
-  const { email, password } = req.body;
-
+  const {
+    email,
+    password
+  } = req.body;
+  console.log(req.body);
   // find user based on email
-  const [findUserErr, userInfo] = await handle(User.findOne({ email }));
-
+  const [findUserErr, userInfo] = await handle(Users.findOne({
+    where: {
+      email: email
+    }
+  }));
+  console.log(userInfo);
   if (findUserErr) {
     console.log(findUserErr);
     res.status(500).json({
@@ -78,7 +92,9 @@ const login = async (req, res) => {
 // get user profile
 // GET '/api/user' (this will be run through auth middleware)
 const getUserProfile = async (req, res) => {
-  const [userErr, userProfile] = await handle(Users.findOne({id: req.id}));
+  const [userErr, userProfile] = await handle(Users.findOne({
+    id: req.id
+  }));
 
   if (userErr) {
     res.status(500).json(userErr);
