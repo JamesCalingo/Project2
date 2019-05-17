@@ -31,11 +31,15 @@ $("#createUser").on("submit", function(event){
   })
     .then(function(userData) {
       console.log(userData);
+      
       return swal({
         title: "You're in! You should receive a confirmation email shortly, but for now, let's get to your registry!",
         icon: 'success'
+      })
+      .then(function(){
+        window.location.href = "./additems"
       });
-      window.location.href = "./add"
+      
     })
     
     // .then(function() {
