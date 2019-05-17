@@ -35,6 +35,7 @@ module.exports = function(sequelize, DataTypes) {
           console.log(err);
           reject(err);
         } else {
+          console.log(same);
           resolve(same);
         }
       });

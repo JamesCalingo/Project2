@@ -1,52 +1,34 @@
-const Products = require("../models").products;
+// *********************************************************************************
+// api-routes.js - this file offers a set of routes for displaying and saving data to the db
+// *********************************************************************************
 
-module.exports = (app) => {
- 
-  // PRODUCT ROUTES
-  // API Route to see the registry
+// Dependencies
+// =============================================================
+
+// Requiring our models
+var db = require("../models");
+
+// Routes
+// =============================================================
+module.exports = function(app) {
+
+  // GET route for getting all of the posts
   app.get("/api/products", function(req, res) {
-    Products.findAll({})
-      .then(dbProductData => res.json(dbProductData))
+    var query = {};
+    if (req.query.users_id) {
+      query.UsersId = req.query.users_id;
+    }
+    // Here we add an "include" property to our options in our findAll query
+    // We set the value to an array of the models we want to include in a left outer join
+    // In this case, just db.Users
+    db.Products.findAll({
+      where: query,
+      include: [db.Users]
+    }).then(function(dbProducts) {
+      res.json(dbProducts);
+    });
   });
-// API Route to add a product
-  app.post("/api/products", function(req, res) {
-   Products.create({
-     product: req.body.product,
-     price: req.body.price
-   }).then(function(dbProductData){
-     res.json(dbProductData)
-   })
-  });
-// API Route to find products by ID - not sure if we need this though
-  app.get("/api/products/:id", function(req, res) {
-    Products.findByID(req.params.id)
-      .then(dbProductData => res.json(dbProductData))
-      .catch(err => {
-        console.log(err);
-        res.json(err);
-      });
-  });
-// API Route to change product purchased status to "true"
-  app.put("/api/products/:id", function(req, res) {
-    Products.update({purchased: true},{
-      where: {id: req.params.id}
-    })
-      .then(dbProductData => res.json(dbProductData))
-      .catch(err => {
-        console.log(err);
-        res.json(err);
-      });
-  });
-// API Route to delete a product (if you so choose)
-  app.delete("/api/products/:id", function(req, res) {
-    Products.destroy({
-      where:{id: req.params.id}
-    })
-      .then(dbProductData => res.json(dbProductData))
-      .catch(err => {
-        console.log(err);
-        res.json(err);
-      });
-  });
-}
+
+ };
+
 
