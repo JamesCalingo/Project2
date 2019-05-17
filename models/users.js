@@ -22,8 +22,9 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       
     }
-    
-  });
+  },
+
+  );
 
   // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database
   Users.prototype.validPassword = function(password) {
@@ -48,12 +49,8 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   Users.associate = function(models) {
-    // Associating Users with Products
-    // When an Users is deleted, also delete any associated Products
-    Users.hasMany(models.Products, {
-      onDelete: "cascade"
-    });
-  };
+    Users.hasMany(models.Products);
+  }
 
   return Users;
 
