@@ -93,15 +93,17 @@ const login = async (req, res) => {
 // GET '/api/user' (this will be run through auth middleware)
 const getUserProfile = async (req, res) => {
   const [userErr, userProfile] = await handle(Users.findOne({
-    id: req.id
+    where: {
+      id: req.id
+    }
   }));
 
   if (userErr) {
     res.status(500).json(userErr);
   } else {
     res.status(200).json(userProfile);
-  console.log("here")
-}
+  }
+  
 };
 
 // export our methods
