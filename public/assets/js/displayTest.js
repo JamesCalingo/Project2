@@ -1,3 +1,5 @@
+var purchasedBtn;
+
 $("#showProducts").on("click", function(event){
   event.preventDefault();
   
@@ -8,7 +10,7 @@ var testArray = ["a", "b", "c", "D"]
   for(var i = 0; i < testArray.length; i++){
   var regItem = $("<li>").html(testArray[i]);
   // regItem.dataAttr("purchased", false);
-  var purchasedBtn = $("<button>");
+  purchasedBtn = $("<button>");
   purchasedBtn.addClass("btn btn-warning purchasedBtn ml-3");
   purchasedBtn.text("Claim this item")
   regItem.append(purchasedBtn)
@@ -25,7 +27,7 @@ console.log("BOOM")
 //   icon: "success"
 // });
 alert("HI!")
-$(".purchasedBtn").addClass("disabled").text("Claimed")
+$(".purchasedBtn").removeClass("purchasedBtn").addClass("disabled").text("Claimed")
 // Set the item's data-attribute to "true"; disable the button somehow/move it to bottom of list if possible
 })
 // set value of product to "purchased: true" (via AJAX)
