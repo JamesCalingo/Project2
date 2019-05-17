@@ -100,7 +100,8 @@ const getUserProfile = async (req, res) => {
     res.status(500).json(userErr);
   } else {
     res.status(200).json(userProfile);
-  }
+  console.log("here")
+}
 };
 
 // export our methods
