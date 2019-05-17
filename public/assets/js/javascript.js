@@ -1,4 +1,3 @@
-
 // Create user and add to database
 
 $("#createUser").on("submit", function(event){
@@ -13,9 +12,9 @@ $("#createUser").on("submit", function(event){
     email: $('#emailInput')
       .val()
       .trim(),
-    password: $('#InputPassword1')
+    password: $('#inputPassword1')
       .val()
-      .trim()
+      .trim(),
   };
 
   if (!userData.firstName || !userData.lastName || !userData.email || !userData.password) {
@@ -60,7 +59,7 @@ const userData = {
     .trim(),
   password: $('#exampleInputPassword1')
     .val()
-    .trim()
+    .trim(),
 };
 
 if (!userData.email || !userData.password) {
@@ -80,7 +79,8 @@ $.ajax({
     localStorage.setItem('accessToken', accessToken);
     getUserProfile();
   })
-  .catch(err => {
+
+   .catch(err => {
     console.log(err);
     return swal({
       title: err.responseJSON.error,
@@ -88,6 +88,25 @@ $.ajax({
     });
   });
 });
+
+function getUserProfile() {
+  const token = localStorage.getItem('accessToken');
+
+  $.ajax({
+    url: '/api/users',
+    method: 'get',
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  })
+    .then(userData => {
+      console.log(userData);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
+}
 
 // find and display registry
 $("#findRegistry").on("click", function(event){

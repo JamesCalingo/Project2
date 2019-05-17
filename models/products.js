@@ -31,16 +31,10 @@ module.exports = function(sequelize, DataTypes) {
   }
 }
 
-},
-{
-  classMethods: {
-    associate : function(models) {
-      Products.belongsTo(models.Users)
-    }
-  }
+});
+
+Products.associate = function(models) {
+  Products.belongsTo(models.users);
 }
-
-);
-
   return Products;
  };
