@@ -39,11 +39,6 @@ $("#createUser").on("submit", function (event) {
       .then(function(){
         window.location.href = "./additems"
       });
-<<<<<<< HEAD
-      
-=======
-      window.location.href = "./additems"
->>>>>>> 771b2b55d091ff439a14be69a36f51aff0cf77d9
     })
 
     // .then(function() {
