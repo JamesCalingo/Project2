@@ -126,38 +126,39 @@ $("#findRegistry").on("click", function(event){
 
   // Go to registry page - there's probably a way to make each registry its own page...
 
-  $("#showProducts").on("click", function(event){
-    event.preventDefault();
-    $("#registryHeader").html("Here are the items currently in this registry:")
-    var registry = $("<ul>")
-    registry.addClass("unstyled")
-    $.ajax({
-      url: "/api/users",
-      method: "GET"
-    }).then(function(data){
-    for(var i = 0; i < data.length; i++){
-    var regItem = $("<li>");
-    regItem.dataAttribute("purchased", false);
-    var purchasedBtn = $("<button>");
-    purchasedBtn.addClass("btn btn-primary purchaseBtn");
-    purchasedBtn.text("Claim this item")
-    regItem.append(purchasedBtn)
-    registry.append(regItem)
-    }
-    $("#registryList").append(registry)
-  })
-  })
+  var purchasedBtn;
+
+$("#showProducts").on("click", function(event){
+  event.preventDefault();
+  
+  $("#registryHeader").html("Here are the items currently in this registry:")
+  var registry = $("<ul>")
+  registry.addClass("list-unstyled")
+var testArray = ["Toaster", "Toaster oven", "Teapot", "The entire Studio Ghibli collection on LaserDisc"]
+  for(var i = 0; i < testArray.length; i++){
+  var regItem = $("<li>").html(testArray[i]);
+  // regItem.dataAttr("purchased", false);
+  purchasedBtn = $("<button>");
+  purchasedBtn.addClass("btn btn-warning purchasedBtn ml-3");
+  purchasedBtn.text("Claim this item")
+  regItem.append(purchasedBtn)
+  registry.append(regItem)
+  }
+  $("#registryList").html(registry)
+})
 
 $(document).on("click", ".purchasedBtn", function(event){
-  event.preventDefault();
-  return swal({
-    title: "Item confirmed. Thank You!",
-    icon: "success"
-  });
-  purchasedBtn.addClass("disabled")
-  // Set the item's data-attribute to "true"; disable the button somehow/move it to bottom of list if possible
+event.preventDefault();
+console.log("BOOM")
+$(".purchasedBtn").removeClass("purchasedBtn").addClass("disabled").text("Claimed")
+return swal({
+  title: "Item confirmed. Thank You!",
+  icon: "success"
+});
+
+// Set the item's data-attribute to "true"; disable the button somehow/move it to bottom of list if possible
 })
-// set value of product to "purchased: true"
+// set value of product to "purchased: true" (via AJAX)
 
 // Login to registry
 $("#login").on("submit", function(event){
