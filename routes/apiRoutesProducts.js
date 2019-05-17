@@ -8,6 +8,7 @@
 // Requiring our models
 var db = require("../models");
 
+const withAuth = require('../middleware/authentication');
 // Routes
 // =============================================================
 module.exports = function(app) {
@@ -23,11 +24,21 @@ module.exports = function(app) {
     // In this case, just db.Users
     db.Products.findAll({
       where: query,
-      include: [db.Users]
+      include: [db.users]
     }).then(function(dbProducts) {
       res.json(dbProducts);
     });
   });
+
+
+  // post product
+    // POST route for saving a new post
+    app.post("/api/products",withAuth, function(req, res) {
+      req.body.userId = req.id;
+      db.Products.create(req.body).then(function(dbProducts) {
+        res.json(dbProducts);
+      });
+    });
 
  };
 
