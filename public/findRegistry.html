@@ -14,7 +14,7 @@
 <form>
     <div class="form-group" >
       
-      <input type="text" class="form-control" id="registryLookup" placeholder="">
+      <input type="text" class="form-control" id="registryInput" placeholder="">
     </div>
     <button type="submit" class="btn btn-success" id="registryLookup">Submit</button>
   </form>
@@ -58,7 +58,7 @@
 $("#registryLookup").on("submit", function (event) {
   event.preventDefault();
   const findRegistry = {
-    email: $('#registryLookup')
+    email: $('#registryInput')
       .val()
       .trim(),
   };

@@ -272,9 +272,9 @@ $(document).ready(function () {
         $("#not-purchased").append($li);
       } else {
         // add them to right column
-        $li.append(button)
+        
         $("#purchased").append($li);
-       
+        $("<button>").append(button)
       }
 
     }
