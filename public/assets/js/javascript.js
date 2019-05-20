@@ -122,8 +122,10 @@ $("#findRegistry").on("click", function (event) {
   var registry = $("#registryLookup").val().trim();
   // API lookup the registry
   if (!registry) {
-    alert("We couldn't find that registry. Make sure it's spelled correctly and exactly as it was given to you, then try again.")
-  } else {
+    return swal({title: "We couldn't find that registry. Make sure it's spelled correctly and exactly as it was given to you, then try again.",
+    icon: error
+  })
+ } else {
     window.location.href = "./dummy"
   }
 });
@@ -135,13 +137,16 @@ var purchasedBtn;
 
 $("#showProducts").on("click", function (event) {
   event.preventDefault();
-
+  $.ajax({
+    url: "api/products",
+    method: "GET"
+  }).then(function(data){
+console.log(data)
   $("#registryHeader").html("Here are the items currently in this registry:")
   var registry = $("<ul>")
   registry.addClass("list-unstyled")
-  var testArray = ["Toaster", "Toaster oven", "Teapot", "The entire Studio Ghibli collection on LaserDisc"]
-  for (var i = 0; i < testArray.length; i++) {
-    var regItem = $("<li>").html(testArray[i]);
+  for (var i = 0; i < data.length; i++) {
+    var regItem = $("<li>").html(data[i]);
     // regItem.dataAttr("purchased", false);
     purchasedBtn = $("<button>");
     purchasedBtn.addClass("btn btn-warning purchasedBtn ml-3");
@@ -151,6 +156,7 @@ $("#showProducts").on("click", function (event) {
   }
   $("#registryList").html(registry)
 });
+})
 
 $(document).on("click", ".purchasedBtn", function (event) {
   event.preventDefault();
