@@ -1,5 +1,5 @@
 // Create user and add to database
-console.log("TEST")
+
 $("#createUser").on("submit", function (event) {
   event.preventDefault();
   const userData = {
@@ -31,14 +31,14 @@ $("#createUser").on("submit", function (event) {
     })
     .then(function (userData) {
       console.log(userData);
-      
+
       return swal({
-        title: "You're in! You should receive a confirmation email shortly, but for now, let's get to your registry!",
-        icon: 'success'
-      })
-      .then(function(){
-        window.location.href = "./additems"
-      });
+          title: "You're in! You should receive a confirmation email shortly, but for now, let's get to your registry!",
+          icon: 'success'
+        })
+        .then(function () {
+          window.location.href = "./additems"
+        });
     })
 
     // .then(function() {
@@ -85,6 +85,11 @@ $("#login-btn").on("submit", function (event) {
       getUserProfile();
     })
 
+    .then(function (userData) {
+      window.location.href = "/additems"
+      console.log(userData);
+    })
+
     .catch(err => {
       console.log(err);
       return swal({
@@ -116,17 +121,17 @@ function getUserProfile() {
 
 
 
-// find and display registry
-$("#findRegistry").on("click", function (event) {
-  event.preventDefault();
-  var registry = $("#registryLookup").val().trim();
-  // API lookup the registry
-  if (!registry) {
-    alert("We couldn't find that registry. Make sure it's spelled correctly and exactly as it was given to you, then try again.")
-  } else {
-    window.location.href = "./dummy"
-  }
-});
+// // find and display registry
+// $("#findRegistry").on("click", function (event) {
+//   event.preventDefault();
+//   var registry = $("#registryLookup").val().trim();
+//   // API lookup the registry
+//   if (!registry) {
+//     alert("We couldn't find that registry. Make sure it's spelled correctly and exactly as it was given to you, then try again.")
+//   } else {
+//     window.location.href = "./dummy"
+//   }
+// });
 
 
 // Go to registry page - there's probably a way to make each registry its own page...
@@ -165,13 +170,13 @@ $(document).on("click", ".purchasedBtn", function (event) {
 })
 // set value of product to "purchased: true" (via AJAX)
 
-// Login to registry
-$("#login").on("submit", function (event) {
-  event.preventDefault();
-  var user = {
-    userName: $("#userName").val()
-  }
-})
+// // Login to registry
+// $("#login").on("submit", function (event) {
+//   event.preventDefault();
+//   var user = {
+//     userName: $("#userName").val()
+//   }
+// })
 
 // Add product
 $("#addProduct").on("submit", function (event) {
@@ -214,6 +219,10 @@ $("#addProduct").on("submit", function (event) {
       })
       .then(function (response) {
         console.log(response)
+        return swal({
+          title: "Item added succesfully!",
+          icon: 'success'
+        })
       })
       .catch(err => {
         console.log(err);
@@ -221,3 +230,60 @@ $("#addProduct").on("submit", function (event) {
       });
   }
 })
+
+// //See current products on users registers additems.html page
+$(document).ready(function () {
+
+  const token = localStorage.getItem("accessToken");
+
+  console.log(token);
+  
+  if (!token) {
+    return swal({
+      title: 'You need to be logged in to do this!',
+      icon: 'error'
+    });
+  } else {
+    $.ajax({
+        url: "/api/products",
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+
+      })
+      .then(function (productData) {
+        productData.forEach(printProducts);
+        console.log(productData);
+      });
+
+
+    function printProducts(productInfo) {
+      console.log(productInfo);
+      // create a list item using jQuery
+      const $li = $("<li>").addClass("list-group-item");
+      const button = $("<button>").addClass('btn btn-primary');
+      // add content to <li>
+      $li.text(`ID: ${productInfo.userId} - ${productInfo.product} || ${productInfo.price} || ${productInfo.purchased}`);
+
+      // add <li> to page based on if it's on waiting list or not
+      if (productInfo.purchased === false) {
+        // add them to left column
+        $("#not-purchased").append($li);
+      } else {
+        // add them to right column
+        $li.append(button)
+        $("#purchased").append($li);
+       
+      }
+
+    }
+
+  }
+
+});
+
+
+
+
+

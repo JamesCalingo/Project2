@@ -29,11 +29,73 @@
           </form>
     </div>
   </div>
+  <br>
+
+<div class="row">
+  <!-- not purchased -->
+  <div class="col-12 col-md-6">
+    <div class="card">
+      <h4 class="card-header">
+        Registry Items Not Purchased
+      </h4>
+      <ul class="list-group list-group-flush" id="not-purchased">
+        <!-- products NOT purchased will be listed here<li> -->
+      </ul>
+    </div>
+  </div>
+
+  <!-- purchased -->
+  <div class="col-12 col-md-6">
+    <div class="card">
+      <h4 class="card-header">
+        Purchased Registry Items
+      </h4>
+      <ul class="list-group list-group-flush" id="purchased">
+        <!-- products purchased will be printed here<li> -->
+      </ul>
+    </div>
+  </div>
 </div>
+
+</div>
+
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="./assets/js/javascript.js"></script>
+
+<!--<script>
+  $.ajax({
+    url: "/api/products",
+    method: "GET"
+  })
+  .then(function (productData) {
+    productData.forEach(printProducts);
+  });
+  
+  function printProducts(productInfo) {
+  console.log(productInfo);
+  // create a list item using jQuery
+  const $li = $("<li>").addClass("list-group-item");
+  
+  // add content to <li>
+  $li.text(`ID: ${productInfo.id} - ${productInfo.product} || ${productInfo.price} || ${productInfo.purchased}`);
+  
+  // add <li> to page based on if it's on waiting list or not
+  if (productInfo.purchased === false) {
+    // add them to left column
+    $("#not-purchased").append($li);
+  } else {
+    // add them to right column
+    $("#purchased").append($li);
+  }
+  
+  }
+  
+  </script>-->
+  
 </body>
 </html>
