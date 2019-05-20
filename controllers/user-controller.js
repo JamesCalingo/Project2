@@ -106,6 +106,8 @@ const getUserProfile = async (req, res) => {
   
 };
 
+
+
 // export our methods
 module.exports = {
   getUserProfile,
