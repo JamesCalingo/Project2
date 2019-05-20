@@ -136,38 +136,42 @@ function getUserProfile() {
 
 // Go to registry page - there's probably a way to make each registry its own page...
 
-var purchasedBtn;
+// var purchasedBtn;
 
-$("#showProducts").on("click", function (event) {
-  event.preventDefault();
+// $("#showProducts").on("click", function (event) {
+//   event.preventDefault();
+//   $.ajax({
+//     url: "api/products",
+//     method: "GET"
+//   }).then(function(data){
+// console.log(data)
+//   $("#registryHeader").html("Here are the items currently in this registry:")
+//   var registry = $("<ul>")
+//   registry.addClass("list-unstyled")
+//   for (var i = 0; i < data.length; i++) {
+//     var regItem = $("<li>").html(data[i]);
+//     // regItem.dataAttr("purchased", false);
+//     purchasedBtn = $("<button>");
+//     purchasedBtn.addClass("btn btn-warning purchasedBtn ml-3");
+//     purchasedBtn.text("Claim this item")
+//     regItem.append(purchasedBtn)
+//     registry.append(regItem)
+//   }
+//   $("#registryList").html(registry)
+// });
+// })
 
-  $("#registryHeader").html("Here are the items currently in this registry:")
-  var registry = $("<ul>")
-  registry.addClass("list-unstyled")
-  var testArray = ["Toaster", "Toaster oven", "Teapot", "The entire Studio Ghibli collection on LaserDisc"]
-  for (var i = 0; i < testArray.length; i++) {
-    var regItem = $("<li>").html(testArray[i]);
-    // regItem.dataAttr("purchased", false);
-    purchasedBtn = $("<button>");
-    purchasedBtn.addClass("btn btn-warning purchasedBtn ml-3");
-    purchasedBtn.text("Claim this item")
-    regItem.append(purchasedBtn)
-    registry.append(regItem)
-  }
-  $("#registryList").html(registry)
-});
+// $(document).on("click", ".purchasedBtn", function (event) {
+//   event.preventDefault();
+//   console.log("BOOM")
+//   $(".purchasedBtn").removeClass("purchasedBtn").addClass("disabled").text("Claimed")
+//   return swal({
+//     title: "Item confirmed. Thank You!",
+//     icon: "success"
+//   });
 
-$(document).on("click", ".purchasedBtn", function (event) {
-  event.preventDefault();
-  console.log("BOOM")
-  $(".purchasedBtn").removeClass("purchasedBtn").addClass("disabled").text("Claimed")
-  return swal({
-    title: "Item confirmed. Thank You!",
-    icon: "success"
-  });
-
-  // Set the item's data-attribute to "true"; disable the button somehow/move it to bottom of list if possible
-})
+//   // Set the item's data-attribute to "true"; disable the button somehow/move it to bottom of list if possible
+// })
 // set value of product to "purchased: true" (via AJAX)
 
 // // Login to registry
@@ -262,13 +266,14 @@ $(document).ready(function () {
       console.log(productInfo);
       // create a list item using jQuery
       const $li = $("<li>").addClass("list-group-item");
-      const button = $("<button>").addClass('btn btn-primary');
+      const button = $("<button>").addClass('btn btn-primary purchaseThis').text("Buy this item");
       // add content to <li>
       $li.text(`ID: ${productInfo.userId} - ${productInfo.product} || ${productInfo.price} || ${productInfo.purchased}`);
 
       // add <li> to page based on if it's on waiting list or not
       if (productInfo.purchased === false) {
         // add them to left column
+        $li.append(button)
         $("#not-purchased").append($li);
       } else {
         // add them to right column
@@ -280,7 +285,17 @@ $(document).ready(function () {
     }
 
   }
+$(document).on("click", ".purchaseThis", function(event){
+  event.preventDefault();
+  var productID = $(this).attr("data-id");
+$.ajax({
+  url: "api/products",
+  method: "PUT",
 
+}).then(function(response){
+  
+})
+})
 });
 
 
