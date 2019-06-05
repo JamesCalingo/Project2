@@ -242,12 +242,13 @@ $(document).ready(function () {
 
   console.log(token);
   
-  if (!token) {
-    return swal({
-      title: 'You need to be logged in to do this!',
-      icon: 'error'
-    });
-  } else {
+  // if (!token) {
+  //   return swal({
+  //     title: 'You need to be logged in to do this!',
+  //     icon: 'error'
+  //   });
+  // } else 
+  {
     $.ajax({
         url: "/api/products",
         method: "GET",
