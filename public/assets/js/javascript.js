@@ -37,7 +37,7 @@ $("#createUser").on("submit", function (event) {
           icon: 'success'
         })
         .then(function () {
-          window.location.href = "./additems"
+          window.location.href = "./login"
         });
     })
 
@@ -197,12 +197,12 @@ $("#addProduct").on("submit", function (event) {
   // get access token
   const token = localStorage.getItem("accessToken");
 
-  if (!token) {
-    return swal({
-      title: 'You need to be logged in to do this!',
-      icon: 'error'
-    });
-  };
+  // if (!token) {
+  //   return swal({
+  //     title: 'You need to be logged in to do this!',
+  //     icon: 'error'
+  //   });
+  // };
 
 
 
@@ -266,9 +266,9 @@ $(document).ready(function () {
       console.log(productInfo);
       // create a list item using jQuery
       const $li = $("<li>").addClass("list-group-item");
-      const button = $("<button>").addClass('btn btn-primary purchaseThis').text("Buy this item");
+      const button = $("<button>").addClass('btn btn-primary ml-3 purchaseThis').text("Buy this item");
       // add content to <li>
-      $li.text(`ID: ${productInfo.userId} - ${productInfo.product} || ${productInfo.price} || ${productInfo.purchased}`);
+      $li.text(`${productInfo.product} || ${productInfo.price}`);
 
       // add <li> to page based on if it's on waiting list or not
       if (productInfo.purchased === false) {
